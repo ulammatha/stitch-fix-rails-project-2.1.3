@@ -1,0 +1,58 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Clearance Batch <%= @clearanced_batch_items.first.clearance_batch_id %>
+          <span class="pull-right">
+            # Items <%= @clearanced_batch_items.count %>
+          </span>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class= "row">
+          <div class="col-md-2">
+            Item ID
+          </div>
+          <div class="col-md-2">
+            Type
+          </div>
+          <div class="col-md-2">
+            Size
+          </div>
+          <div class="col-md-3">
+            Color
+          </div>
+          <div class="col-md-3">
+            Price Sold
+          </div>
+          <hr>
+        </div>
+        <%- @clearanced_batch_items.each do |item| %>
+          <div class= "row">
+            <div class="col-md-2">
+              <%= item.id %>
+            </div>
+            <div class="col-md-2">
+              <%= item.style.type %>
+            </div>
+            <div class="col-md-2">
+              <%= item.size %>
+            </div>
+            <div class="col-md-3">
+              <%= item.color %>
+            </div>
+            <div class="col-md-3">
+              <%= item.price_sold %>
+            </div>
+          </div>
+        <%- end -%>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-sm btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

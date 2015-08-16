@@ -14,6 +14,7 @@
       <th></th>
       <th>Date clearanced</th>
       <th>Number of items clearanced</th>
+      <th> View Clearanced Items </th>
     </tr>
   </thead>
   <tbody>
@@ -22,7 +23,11 @@
         <td>Clearance Batch <%= clearance_batch.id %></td>
         <td><%= l(clearance_batch.created_at, format: :short) %></td>
         <td><%= clearance_batch.items.count %></td>
+        <td>
+          <%= link_to "Report", report_clearance_batches_path(clearance_id: clearance_batch.id), remote: true, class: "btn btn-primary clearance_report", id: "report_id_#{clearance_batch.id}"%>
+        </td>
       </tr>
     <%- end -%>
   </tbody>
 </table>
+<div class="modal"></div>

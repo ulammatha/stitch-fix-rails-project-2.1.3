@@ -21,4 +21,9 @@ class ClearanceBatchesController < ApplicationController
     redirect_to action: :index
   end
 
+  def report
+    @clearanced_batch_items = ClearanceBatch.find(params[:clearance_id]).items
+    render layout: false, template: 'clearance_batches/clearance_modal'
+  end
+
 end
