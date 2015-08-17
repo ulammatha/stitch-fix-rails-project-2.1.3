@@ -1,7 +1,6 @@
 <table class="table table-striped">
   <tr class="warning">
     <th><%= item_sortable "id" %></th>
-    <th><%= item_sortable "type","Type" %></th>
     <th><%= item_sortable "size" %></th>
     <th><%= item_sortable "color" %></th>
     <th><%= item_sortable "status" %></th>
@@ -10,7 +9,6 @@
   <%- @items.each do |item| %>
     <tr>
       <td><%= item.id %></td>
-      <td><%=item.style.type%></td>
       <td><%=item.size%></td>
       <td><%=item.color%></td>
       <td><%=item.status%></td>
