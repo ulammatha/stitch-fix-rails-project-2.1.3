@@ -9,7 +9,13 @@
 <body>
 
 <div class="container">
-  <h1>Stitch Fix Clearance Tool</h1>
+  <h1 class="text-center">Stitch Fix Clearance Tool</h1>
+  <ul class="nav nav-pills nav-justified">
+    <li role="presentation" class="active">
+      <%= link_to "Browse the Items", items_path,class: "btn btn-sm btn-warning"%>
+    </li>
+  </ul>
+  <hr>
   <%- if flash[:notice] -%>
     <div class="alert alert-info" role="alert">
       <%= flash[:notice].html_safe %>

@@ -1,0 +1,15 @@
+.table .warning th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.table .warning th .asc {
+  color: #FF0000;
+  background-image: url(/images/up.png);
+}
+
+.table .warning th .desc {
+  color: #FF0000;
+  background-image: url(/assets/glyphicon-triangle-bottom.eot);
+}
