@@ -26,4 +26,19 @@ class ClearanceBatchesController < ApplicationController
     render layout: false, template: 'clearance_batches/clearance_modal'
   end
 
+  def clearance_item
+    @item = Item.find_by_id(params[:item_id])
+    binding.pry
+    if @item.present?
+      # session[:clearance_items] ||= []
+      # session[:clearance_items] << @item
+      render layout: false, template: 'clearance_batches/clearance_item'
+      return
+      # return item.to_json(
+      #   :only => [ :id, :size, :color, :status ],
+      #   :include => { :style => {:only => :type} }
+      #   )
+    end
+    flash[:alert] = "Item not found, Please check the Item id"
+  end
 end
