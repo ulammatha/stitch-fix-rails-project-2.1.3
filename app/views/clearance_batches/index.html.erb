@@ -1,3 +1,5 @@
+<div id="flash"></div>
+
 <h2>Clearance Batches</h2>
 
 <%= form_tag(item_clearance_batches_path, method: :get, remote: true, class: 'form-inline', id: 'item_clearance') do %>
@@ -8,11 +10,20 @@
   <hr>
 <% end %>
 
-<%= form_tag(item_clearance_batches_path, method: :get) do %>
+<%= form_tag(clearance_batches_path) do %>
   <table class="table table-striped" id="item_clearance_table">
+    <tr>
+      <th>Id</th>
+      <th>Type</th>
+      <th>Size</th>
+      <th>Color</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
   </table>
+  <%= button_tag 'Clearance', class: 'btn btn-warning' %>
 <% end %>
-
+<hr>
 <table class="table table-striped clearance_batches">
   <thead>
     <tr>

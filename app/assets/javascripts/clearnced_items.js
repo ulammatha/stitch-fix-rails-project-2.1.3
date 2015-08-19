@@ -9,10 +9,16 @@ $(function() {
   });
 
   $('#item_clearance').on('ajax:success', function (event, data, status, xhr) {
-    $("#item_clearance_table").append(data)
+    if($(data).find('#clearance_error').length > 0) {
+      $("#flash").html(data);
+    }
+    else {
+      $("#item_clearance_table").append(data);
+    }
   });
 
-  $('#remove_item').on("click",".clearance_report",function(e){
-    $(this).closest('tr').remove();
+  $(document).on("click",".close",function(e){
+    $('#clearance_error').remove();
   });
+
 });

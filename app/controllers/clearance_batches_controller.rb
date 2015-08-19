@@ -5,19 +5,18 @@ class ClearanceBatchesController < ApplicationController
   end
 
   def create
-    clearancing_status = ClearancingService.new.process_file(params[:csv_batch_file].tempfile)
-    clearance_batch    = clearancing_status.clearance_batch
-    alert_messages     = []
-    if clearance_batch.persisted?
-      flash[:notice]  = "#{clearance_batch.items.count} items clearanced in batch #{clearance_batch.id}"
-    else
-      alert_messages << "No new clearance batch was added"
+    status_message = "No Item exists for clearance"
+    binding.pry
+    if session[:clearance_items].present?
+      clearancing_batch = ClearancingService.new.clearance_items!(session[:clearance_items])
+      if clearancing_batch.persisted?
+        status_message = "#{clearancing_batch.items.count} items clearanced in batch #{clearancing_batch.id}"
+      else
+        status_message  = "No new clearance batch was added"
+      end
     end
-    if clearancing_status.errors.any?
-      alert_messages << "#{clearancing_status.errors.count} item ids raised errors and were not clearanced"
-      clearancing_status.errors.each {|error| alert_messages << error }
-    end
-    flash[:alert] = alert_messages.join("<br/>") if alert_messages.any?
+    session[:clearance_items] = nil
+    flash[:notice] = status_message
     redirect_to action: :index
   end
 
@@ -26,19 +25,24 @@ class ClearanceBatchesController < ApplicationController
     render layout: false, template: 'clearance_batches/clearance_modal'
   end
 
-  def clearance_item
+  def add_clearance_item
     @item = Item.find_by_id(params[:item_id])
-    binding.pry
-    if @item.present?
-      # session[:clearance_items] ||= []
-      # session[:clearance_items] << @item
-      render layout: false, template: 'clearance_batches/clearance_item'
-      return
-      # return item.to_json(
-      #   :only => [ :id, :size, :color, :status ],
-      #   :include => { :style => {:only => :type} }
-      #   )
+    if @item.present? && @item.status != Item::STATUS[:sellable]
+      return render partial: "clearance_batches/flash",
+        locals: {
+          flash: { alert: "Item could not be clearanced" }
+        }
+
+    elsif @item.present? && @item.status == Item::STATUS[:sellable]
+      session[:clearance_items] ||= []
+      session[:clearance_items] << @item.id
+      return render layout: false, template: 'clearance_batches/add_clearance_item'
+
     end
-    flash[:alert] = "Item not found, Please check the Item id"
+    render partial: "clearance_batches/flash",
+      locals: {
+        flash: { alert: "Item not found, Please check the Item id" }
+      }
   end
+
 end
