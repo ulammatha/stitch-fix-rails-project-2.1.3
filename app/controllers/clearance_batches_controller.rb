@@ -6,10 +6,9 @@ class ClearanceBatchesController < ApplicationController
 
   def create
     status_message = "No Item exists for clearance"
-    binding.pry
     if session[:clearance_items].present?
       clearancing_batch = ClearancingService.new.clearance_items!(session[:clearance_items])
-      if clearancing_batch.persisted?
+      if clearancing_batch.present? && clearancing_batch.persisted?
         status_message = "#{clearancing_batch.items.count} items clearanced in batch #{clearancing_batch.id}"
       else
         status_message  = "No new clearance batch was added"

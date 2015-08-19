@@ -16,6 +16,6 @@ class Item < ActiveRecord::Base
     elsif selling_price < 2
       selling_price = 2
     end
-    update_attributes!(status: Item::STATUS['clearanced'], price_sold: selling_price)
+    update_attributes!(status: Item::STATUS[:clearanced], price_sold: selling_price)
   end
 end
