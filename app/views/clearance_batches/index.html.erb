@@ -1,7 +1,4 @@
 <div id="flash"></div>
-
-<h2>Clearance Batches</h2>
-
 <%= form_tag(add_clearance_batches_path, method: :get, remote: true, class: 'form-inline', id: 'item_clearance') do %>
   <div class="form-group">
     <%= text_field_tag 'item_id', nil, placeholder: 'Enter Item id' %>
@@ -10,7 +7,8 @@
   <hr>
 <% end %>
 
-<%= form_tag(clearance_batches_path) do %>
+<%= form_tag(clearance_batches_path, id: "clearance_items") do %>
+  <h2>Items to be clearance</h2>
   <table class="table table-striped" id="item_clearance_table">
     <tr>
       <th>Id</th>
@@ -24,26 +22,29 @@
   <%= button_tag 'Clearance', class: 'btn btn-warning' %>
 <% end %>
 <hr>
-<table class="table table-striped clearance_batches">
-  <thead>
-    <tr>
-      <th>Clearance Batch </th>
-      <th>Date clearanced</th>
-      <th>Number of items clearanced</th>
-      <th> View Clearanced Items </th>
-    </tr>
-  </thead>
-  <tbody>
-    <%- @clearance_batches.each do |clearance_batch| -%>
+<section id="clearanced_batches" class="jumbotron">
+  <h2>Clearanced Batches</h2>
+  <table class="table table-striped clearance_batches">
+    <thead>
       <tr>
-        <td><%= clearance_batch.id %></td>
-        <td><%= l(clearance_batch.created_at, format: :short) %></td>
-        <td><%= clearance_batch.items.count %></td>
-        <td>
-          <%= link_to "Report", report_clearance_batches_path(clearance_id: clearance_batch.id), remote: true, class: "btn btn-primary clearance_report", id: "report_id_#{clearance_batch.id}"%>
-        </td>
+        <th>Clearance Batch </th>
+        <th>Date clearanced</th>
+        <th>Number of items clearanced</th>
+        <th> View Clearanced Items </th>
       </tr>
-    <%- end -%>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <%- @clearance_batches.each do |clearance_batch| -%>
+        <tr>
+          <td><%= clearance_batch.id %></td>
+          <td><%= l(clearance_batch.created_at, format: :short) %></td>
+          <td><%= clearance_batch.items.count %></td>
+          <td>
+            <%= link_to "Report", report_clearance_batches_path(clearance_id: clearance_batch.id), remote: true, class: "btn btn-primary clearance_report", id: "report_id_#{clearance_batch.id}"%>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+</section>
 <div class="modal"></div>

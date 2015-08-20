@@ -43,6 +43,18 @@ RSpec.describe ClearanceBatchesController, type: :controller do
     end
   end
 
+  describe "GET remove_clearance_item" do
+
+    context 'when item is valid' do
+      let!(:item) {FactoryGirl.create(:item)}
+      it "should remove item from the clearance list" do
+        session[:clearance_items] = [item.id]
+        get :remove_clearance_item, item_id: item.id
+        expect(session[:clearance_items]).not_to include(item.id)
+      end
+    end
+  end
+
   describe "POST create" do
     context 'when no items for clearance' do
       it "should return no items exists error message" do
