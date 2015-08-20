@@ -20,7 +20,7 @@ class ClearanceBatchesController < ApplicationController
   end
 
   def report
-    @clearanced_batch_items = ClearanceBatch.find(params[:clearance_id]).items
+    @clearanced_batch = ClearanceBatch.find(params[:clearance_id])
     render layout: false, template: 'clearance_batches/clearance_modal'
   end
 
@@ -31,12 +31,10 @@ class ClearanceBatchesController < ApplicationController
         locals: {
           flash: { alert: "Item could not be clearanced" }
         }
-
     elsif @item.present? && @item.status == Item::STATUS[:sellable]
       session[:clearance_items] ||= []
       session[:clearance_items] << @item.id
       return render layout: false, template: 'clearance_batches/add_clearance_item'
-
     end
     render partial: "clearance_batches/flash",
       locals: {

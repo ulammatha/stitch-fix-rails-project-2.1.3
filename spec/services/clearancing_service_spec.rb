@@ -10,7 +10,7 @@ describe ClearancingService do
   end
 
   describe "#clearance_items!" do
-    context 'total success' do
+    context 'successful clearance batch' do
       it 'should create a clearance batch with items set to clearanced status' do
         item_ids = items[0,5].map(&:id)
         clearance_batch = clearancing_service.clearance_items!(item_ids)
@@ -24,7 +24,8 @@ describe ClearancingService do
                                                           ])
       end
     end
-    context 'Failed celarance batch ' do
+
+    context 'Failure celarance batch ' do
       it 'should not create any clearance batch' do
         item_ids = [" ", "test", 9999, 20.5, 0]
         clearance_batch = clearancing_service.clearance_items!(item_ids)
@@ -32,7 +33,7 @@ describe ClearancingService do
       end
     end
 
-    context 'partial success ' do
+    context 'partial success clearance batch' do
      it 'should create a celarance batch with partial items set to clearanced status ' do
       item_ids = items[0,2].map(&:id)
       item_ids << 9999
