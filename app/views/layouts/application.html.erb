@@ -16,18 +16,8 @@
     </li>
   </ul>
   <hr>
-  <%- if flash[:notice] -%>
-    <div class="alert alert-info" role="alert">
-      <%= flash[:notice].html_safe %>
-    </div>
-  <%- end -%>
-  <%- if flash[:alert] -%>
-    <div class="alert alert-danger" role="alert">
-      <%= flash[:alert].html_safe %>
-    </div>
-  <%- end -%>
+  <%= render partial: "layouts/flash", locals: { flash: flash } %>
   <%= yield %>
 </div>
-
 </body>
 </html>

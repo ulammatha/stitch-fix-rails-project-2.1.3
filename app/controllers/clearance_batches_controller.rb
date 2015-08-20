@@ -27,7 +27,7 @@ class ClearanceBatchesController < ApplicationController
   def add_clearance_item
     @item = Item.find_by_id(params[:item_id])
     if @item.present? && @item.status != Item::STATUS[:sellable]
-      return render partial: "clearance_batches/flash",
+      return render partial: "layouts/flash",
         locals: {
           flash: { alert: "Item could not be clearanced" }
         }
@@ -36,7 +36,7 @@ class ClearanceBatchesController < ApplicationController
       session[:clearance_items] << @item.id
       return render layout: false, template: 'clearance_batches/add_clearance_item'
     end
-    render partial: "clearance_batches/flash",
+    render partial: "layouts/flash",
       locals: {
         flash: { alert: "Item not found, Please check the Item id" }
       }
