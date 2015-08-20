@@ -8,6 +8,7 @@ gem "coffee-rails"
 gem "jquery-rails"
 gem "bootstrap-sass"
 gem 'pry-byebug'
+gem 'rack_session_access'
 
 group :test, :development do
   gem "rspec-rails"
