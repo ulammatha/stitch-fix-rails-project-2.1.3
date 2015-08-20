@@ -1,6 +1,7 @@
 class ClearanceBatchesController < ApplicationController
 
   def index
+    @items = Item.where(id: session[:clearance_items]) if session[:clearance_items].present?
     @clearance_batches  = ClearanceBatch.all
   end
 
@@ -14,7 +15,7 @@ class ClearanceBatchesController < ApplicationController
         status_message  = "No new clearance batch was added"
       end
     end
-    session[:clearance_items] = nil
+    session[:clearance_items] = nil #clearing session
     flash[:notice] = status_message
     redirect_to action: :index
   end
@@ -26,20 +27,13 @@ class ClearanceBatchesController < ApplicationController
 
   def add_clearance_item
     @item = Item.find_by_id(params[:item_id])
-    if @item.present? && @item.status != Item::STATUS[:sellable]
-      return render partial: "layouts/flash",
-        locals: {
-          flash: { alert: "Item could not be clearanced" }
-        }
-    elsif @item.present? && @item.status == Item::STATUS[:sellable]
-      session[:clearance_items] ||= []
-      session[:clearance_items] << @item.id
-      return render layout: false, template: 'clearance_batches/add_clearance_item'
-    end
-    render partial: "layouts/flash",
-      locals: {
-        flash: { alert: "Item not found, Please check the Item id" }
-      }
+
+    return render partial: "layouts/flash",
+    locals: {
+      flash: { alert: "Item not found, Please check the Item id" }
+    } if @item.nil?
+
+    return render_template(@item)
   end
 
   def remove_clearance_item
@@ -50,4 +44,19 @@ class ClearanceBatchesController < ApplicationController
     end
   end
 
+  private
+
+  def render_template(item)
+    if item.status == Item::STATUS[:sellable]
+      if session[:clearance_items].present? && session[:clearance_items].include?(item.id)
+        return render partial: "layouts/flash",
+                      locals: { flash: { alert: "Item is already added in to clearance list"} }
+      end
+      session[:clearance_items] ||= []
+      session[:clearance_items] << item.id
+      return render layout: false, template: 'clearance_batches/add_clearance_item', locals: {item: @item}
+    end
+    render partial: "layouts/flash",
+          locals: { flash: { alert: "Item could not be clearanced"} }
+  end
 end

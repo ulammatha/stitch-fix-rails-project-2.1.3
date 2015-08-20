@@ -18,6 +18,9 @@
       <th>Status</th>
       <th>Action</th>
     </tr>
+    <%- @items.try(:each) do |item| %>
+      <%= render template: 'clearance_batches/add_clearance_item', locals:{item: item} %>
+    <%- end -%>
   </table>
   <%= button_tag 'Clearance', class: 'btn btn-warning' %>
 <% end %>

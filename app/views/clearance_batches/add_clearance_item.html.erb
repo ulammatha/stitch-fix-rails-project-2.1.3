@@ -1,12 +1,10 @@
-<%- if @item.present? %>
-  <tr id="<%= dom_id(@item)%>">
-    <td><%= @item.id %></td>
-    <td><%= @item.style.type %></td>
-    <td><%= @item.size %></td>
-    <td><%= @item.color %></td>
-    <td><%= @item.status %></td>
-    <td>
-      <a href="#" class="remove">Remove</a>
-    </td>
-  </tr>
-<% end %>
+<tr id="<%= dom_id(item)%>">
+  <td><%= item.id %></td>
+  <td><%= item.style.type %></td>
+  <td><%= item.size %></td>
+  <td><%= item.color %></td>
+  <td><%= item.status %></td>
+  <td>
+    <a href="#" class="remove">Remove</a>
+  </td>
+</tr>

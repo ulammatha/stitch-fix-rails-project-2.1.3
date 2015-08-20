@@ -20,8 +20,6 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
 
-  config.include CsvHelper
-
   config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
@@ -36,7 +34,7 @@ RSpec.configure do |config|
       DatabaseCleaner.clean
     end
   end
-  
+
   config.around(:each) do |ex|
     DatabaseCleaner.cleaning do
       ex.run

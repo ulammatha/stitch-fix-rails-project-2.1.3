@@ -13,7 +13,7 @@ describe "add new monthly clearance_batch" do
       it "displays a list of all past clearance batches" do
         visit "/"
         expect(page).to have_content("Stitch Fix Clearance Tool")
-        expect(page).to have_content("Clearance Batches")
+        expect(page).to have_content("Clearanced Batches")
         within('table.clearance_batches') do
           expect(page).to have_content("#{clearance_batch_1.id}")
           expect(page).to have_content("#{clearance_batch_2.id}")
