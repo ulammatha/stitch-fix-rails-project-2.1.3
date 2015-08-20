@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
 
   scope :sellable, -> { where(status: 'sellable') }
 
+  # updates the item status and price_sold details
   def clearance!
     selling_price = style.wholesale_price * CLEARANCE_PRICE_PERCENTAGE
     if selling_price < 5 && PANTS_AND_DRESSES.include?(style.type)
