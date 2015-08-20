@@ -42,4 +42,12 @@ class ClearanceBatchesController < ApplicationController
       }
   end
 
+  def remove_clearance_item
+    item_id = params[:item_id].to_i
+    if session[:clearance_items].include?(item_id)
+      item_id = session[:clearance_items].delete(params["item_id"].to_i)
+      return render json: {removed_item_id: item_id}
+    end
+  end
+
 end

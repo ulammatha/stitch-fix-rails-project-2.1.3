@@ -2,7 +2,7 @@
 
 <h2>Clearance Batches</h2>
 
-<%= form_tag(item_clearance_batches_path, method: :get, remote: true, class: 'form-inline', id: 'item_clearance') do %>
+<%= form_tag(add_clearance_batches_path, method: :get, remote: true, class: 'form-inline', id: 'item_clearance') do %>
   <div class="form-group">
     <%= text_field_tag 'item_id', nil, placeholder: 'Enter Item id' %>
     <%= button_tag 'Add Item', class: 'btn btn-primary' %>

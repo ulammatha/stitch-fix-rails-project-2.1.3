@@ -14,6 +14,7 @@ $(function() {
     }
     else {
       $("#item_clearance_table").append(data);
+      $("#item_id").val('');
     }
   });
 
@@ -21,4 +22,18 @@ $(function() {
     $('#clearance_error').remove();
   });
 
+  $(document).on("click",".remove",function(e){
+    tr = $(this).closest('tr').attr('id')
+    id = tr.replace('item_', '');
+    var request = $.ajax({
+        url: "/clearance_batches/remove_clearance_item",
+        type: 'GET',
+        data: {item_id: id}
+      });
+
+    request.success(function(data){
+      tr_id = "#item_".concat(data["removed_item_id"]);
+      $(tr_id).remove();
+    });
+  });
 });

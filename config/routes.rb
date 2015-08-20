@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :clearance_batches, only: [:index, :create] do
     collection do
       get :report
-      get :add_clearance_item, as: :item
+      get :add_clearance_item, as: :add
+      get :remove_clearance_item, as: :remove
     end
   end
 
